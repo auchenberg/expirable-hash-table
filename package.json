@@ -1,0 +1,16 @@
+{
+  "name": "expirable-hash-table",
+  "version": "1.0.0",
+  "description": "Expirable HashTable to enable timeout-based item removal from HashTable.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard index.js && node test.js | tap-spec"
+  },
+  "author": "Kenneth Auchenberg",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^6.0.7",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.2.2"
+  }
+}
