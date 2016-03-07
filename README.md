@@ -25,7 +25,12 @@ myTable.has('key') // -> true/false
 myTable.purge() // -> ExpirableHashTable
 myTable.toArray() // -> Array
 myTable.size() // -> Integer
+
+myTable.on('change', function() {
+  // A change event is emitted ever time an item is added, updated or removed
+})
 ```
 
-## Events
+## License
+MIT
 
