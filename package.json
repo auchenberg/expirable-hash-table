@@ -12,5 +12,9 @@
     "standard": "^6.0.7",
     "tap-spec": "^4.1.1",
     "tape": "^4.2.2"
-  }
+  },
+   "repository" : { 
+     "type" : "git",
+     "url" : "https://github.com/auchenberg/expirable-hash-table.git"
+  }  
 }
