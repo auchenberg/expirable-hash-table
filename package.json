@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard index.js && node test.js | tap-spec"
   },
-  "author": "Kenneth Auchenberg",
+  "author": "Kenneth Auchenberg (@auchenberg)",
   "license": "MIT",
   "devDependencies": {
     "standard": "^6.0.7",
