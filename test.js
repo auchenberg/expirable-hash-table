@@ -35,10 +35,9 @@ tape('Should support custom expirery', function (t) {
 })
 
 tape('Should trigger callback function when expired', function (t) {
-  table.set('key2', 'value', 500, function(key, value, timeout){
-    console.log(timeout)
-    console.log('this is a callback function when expired and key='
-     + key + ' and value=' + value + ' and timeout=' + timeout)
+  table.set('key2', 'value', 500)
+  table.once('key2:expired', function() {
+    console.log('key2:expired in callback function')
   })
   setTimeout(function () {
     t.same(table.get('key2'), undefined)
