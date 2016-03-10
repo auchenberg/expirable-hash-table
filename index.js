@@ -5,6 +5,7 @@ var ExpirableHashTable = function (defaultTimeout) {
   this.defaultTimeout = defaultTimeout
 
   this.table = {}
+  this.cb_table = {}
   this.timers = {}
   this.size = 0
 }
@@ -15,7 +16,7 @@ ExpirableHashTable.prototype.get = function (hash) {
   return this.table[hash]
 }
 
-ExpirableHashTable.prototype.set = function (hash, value, timeout) {
+ExpirableHashTable.prototype.set = function (hash, value, timeout, cb) {
   timeout = timeout != null ? timeout : this.defaultTimeout
   var notifyChange = false
 
@@ -36,6 +37,7 @@ ExpirableHashTable.prototype.set = function (hash, value, timeout) {
 
   this.table[hash] = value
   this.timers[hash] = setTimeout(this.remove.bind(this), timeout, hash)
+  this.cb_table[hash] = cb
 
   if (notifyChange) {
     this.emit('change')
@@ -48,16 +50,23 @@ ExpirableHashTable.prototype.has = function (hash) {
   return this.table[hash] != null
 }
 
+ExpirableHashTable.prototype.has_cb = function (hash) {
+  return this.cb_table[hash] != null
+}
+
 ExpirableHashTable.prototype.size = function () {
   return this.size
 }
 
 ExpirableHashTable.prototype.remove = function (hash) {
   if (this.has(hash)) {
+    if (this.has_cb(hash)) {
+      this.cb_table[hash](hash, this.table[hash], this.timers[hash])
+      delete this.cb_table[hash]
+    }
     clearTimeout(this.timers[hash])
     delete this.table[hash]
     delete this.timers[hash]
-
     this.size = this.size - 1
     this.emit('change')
   }
@@ -73,6 +82,7 @@ ExpirableHashTable.prototype.purge = function () {
   }
 
   this.table = {}
+  this.cb_table = {}
   this.timers = {}
   this.size = 0
   this.emit('change')
