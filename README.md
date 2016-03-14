@@ -13,15 +13,12 @@ Expirable HashTable to enable timeout-based item removal from HashTable.
 ## Use
 
 ```javascript
-
 var ExpirableHashTable = require('expirable-hash-table')
 
 var myTable = new ExpirableHashTable(1000) // default timeout in miliseconds
 
 myTable.set('key', 'value', 3000) // optional timeout in miliseconds
-myTable.set('key2', 'value', 500, function(key, value, timeout){
-  console.log(key)
-});
+
 myTable.get('key') // -> value
 myTable.remove('key') // -> ExpirableHashTable
 myTable.has('key') // -> true/false
@@ -36,8 +33,6 @@ myTable.on('change', function() {
 myTable.once('<key>:expired', function() {
    // A expired event is emitted when a given item expires. Useful if a specific item wants to be monitored. 
 })
- 
-
 ```
 
 ## License
