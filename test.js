@@ -15,7 +15,7 @@ tape('Should remove item after expirety', function (t) {
     t.same(table.get('key'), undefined)
     t.end()
   }, 1000)
-    
+
 })
 
 tape('Should not remove item before expirery', function (t) {
@@ -30,6 +30,17 @@ tape('Should support custom expirery', function (t) {
   table.set('key', 'value', 500)
   setTimeout(function () {
     t.same(table.get('key'), undefined)
+    t.end()
+  }, 550)
+})
+
+tape('Should trigger callback function when expired', function (t) {
+  table.set('key2', 'value', 500)
+  table.once('key2:expired', function() {
+    console.log('key2:expired in callback function')
+  })
+  setTimeout(function () {
+    t.same(table.get('key2'), undefined)
     t.end()
   }, 550)
 })

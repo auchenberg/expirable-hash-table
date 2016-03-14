@@ -57,9 +57,9 @@ ExpirableHashTable.prototype.remove = function (hash) {
     clearTimeout(this.timers[hash])
     delete this.table[hash]
     delete this.timers[hash]
-
     this.size = this.size - 1
     this.emit('change')
+    this.emit(hash + ':expired')
   }
 
   return this
