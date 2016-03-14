@@ -33,7 +33,7 @@ myTable.on('change', function() {
   // A change event is emitted ever time an item is added, updated or removed
 })
 
-table.once('<key>:expired', function() {
+myTable.once('<key>:expired', function() {
    // A expired event is emitted when a given item expires. Useful if a specific item wants to be monitored. 
 })
  
